@@ -12,7 +12,7 @@ while True:
     message = raw_input("enter message : ")
     if message == "quit":
         s.send(message)
-        break;
+        break
     s.send(message)
 
 s.close                     # Close the socket when done

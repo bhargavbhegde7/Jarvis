@@ -2,8 +2,15 @@
 
 import socket               # Import socket module
 
+def getIp(interface):
+    import netifaces as ni
+    ni.ifaddresses(interface)
+    ip = ni.ifaddresses(interface)[2][0]['addr']
+    return ip
+
 s = socket.socket()         # Create a socket object
 host = socket.gethostname() # Get local machine name
+#host = getIp('eth0')
 port = 12345                # Reserve a port for your service.
 s.bind((host, port))        # Bind to the port
 
@@ -17,6 +24,7 @@ while True:
    print "waiting for client message : "
    message = str(c.recv(1024)).strip()
    if not message or message == "quit":
+       print 'quit message received '
        break
    print "received message : ", message
 
