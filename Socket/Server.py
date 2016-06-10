@@ -14,11 +14,13 @@ def getIp(interface):
     return ip
 
 def runCommand(command,):
-    import time
+    #import time
     print "executing ", command
     #time.sleep(3)
     print "done running . . . "
     print "ending . . . "
+    #thread.exit()
+    return
 
 def clientThread(conn,addr):
     print "Got connection from : " + str(addr)
@@ -26,20 +28,24 @@ def clientThread(conn,addr):
         try:
             message = str(conn.recv(1024)).strip() #number of bytes
             print message," by ",addr
-            if message.lower()=='quit':
+            if not message or message.lower()=='quit':
                 print "Terminating connection . . . "
                 break
             else:
+                #print "Executing the task : ", message
+
                 try:
                     start_new_thread(runCommand,(message,))
                 except:
                     print "Exception in running command thread . . .", "Terminating connection . . . "
                     break;
+
         except:
             print "Exception in client thread . . .", "Terminating connection . . . "
             break
 
     conn.close()
+    return
 
 def main(argv):
 
@@ -53,8 +59,9 @@ def main(argv):
         print "Waiting for connection . . . \n"
 
         conn, addr = sock.accept()
-        #start_new_thread(clientThread,(conn,addr))
-        async_result = pool.apply_async(clientThread, (conn,addr))
+        start_new_thread(clientThread,(conn,addr))
+        #async_result = pool.apply_async(clientThread, (conn,addr))
+        #return_val = async_result.get()
 
     conn.close()
     sock.close()
