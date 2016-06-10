@@ -4,8 +4,6 @@ import socket
 from thread import *
 import logging
 import sys
-from multiprocessing.pool import ThreadPool
-pool = ThreadPool(processes=1)
 
 def getIp(interface):
     import netifaces as ni
@@ -14,12 +12,9 @@ def getIp(interface):
     return ip
 
 def runCommand(command,):
-    #import time
     print "executing ", command
-    #time.sleep(3)
     print "done running . . . "
     print "ending . . . "
-    #thread.exit()
     return
 
 def clientThread(conn,addr):
@@ -32,14 +27,11 @@ def clientThread(conn,addr):
                 print "Terminating connection . . . "
                 break
             else:
-                #print "Executing the task : ", message
-
                 try:
                     start_new_thread(runCommand,(message,))
                 except:
                     print "Exception in running command thread . . .", "Terminating connection . . . "
                     break;
-
         except:
             print "Exception in client thread . . .", "Terminating connection . . . "
             break
@@ -48,7 +40,6 @@ def clientThread(conn,addr):
     return
 
 def main(argv):
-
     port = int(argv[0])
     host = ''
     sock = socket.socket()
@@ -57,11 +48,8 @@ def main(argv):
     conn = None
     while True:
         print "Waiting for connection . . . \n"
-
         conn, addr = sock.accept()
         start_new_thread(clientThread,(conn,addr))
-        #async_result = pool.apply_async(clientThread, (conn,addr))
-        #return_val = async_result.get()
 
     conn.close()
     sock.close()
