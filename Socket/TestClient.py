@@ -10,9 +10,9 @@ s.connect((host, port))
 
 while True:
     message = raw_input("enter message : ")
-    if message == "quit":
-        s.send(message)
-        break
+    # if message == "quit":
+    #     s.send(message)
+    #     break
     s.send(message)
 
 s.close                     # Close the socket when done

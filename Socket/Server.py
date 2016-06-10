@@ -1,11 +1,11 @@
 #!/usr/bin/python           # This is server.py file
 
-import socket               # Import socket module
+import socket
 from thread import *
 import logging
-
-#import pdb
-#pdb.set_trace()
+import sys
+from multiprocessing.pool import ThreadPool
+pool = ThreadPool(processes=1)
 
 def getIp(interface):
     import netifaces as ni
@@ -13,41 +13,51 @@ def getIp(interface):
     ip = ni.ifaddresses(interface)[2][0]['addr']
     return ip
 
-def runCommand(command,asd):
-    #import time
-    #print "command : ", command
-    print "going to sleep . . . "
+def runCommand(command,):
+    import time
+    print "executing ", command
     #time.sleep(3)
-    print "woke up . . . "
+    print "done running . . . "
     print "ending . . . "
 
+def clientThread(conn,addr):
+    print "Got connection from : " + str(addr)
+    while True:
+        try:
+            message = str(conn.recv(1024)).strip() #number of bytes
+            print message," by ",addr
+            if message.lower()=='quit':
+                print "Terminating connection . . . "
+                break
+            else:
+                try:
+                    start_new_thread(runCommand,(message,))
+                except:
+                    print "Exception in running command thread . . .", "Terminating connection . . . "
+                    break;
+        except:
+            print "Exception in client thread . . .", "Terminating connection . . . "
+            break
 
-s = socket.socket()         # Create a socket object
-host = socket.gethostname() # Get local machine name
-#host = getIp('eth0')       # to get ip in linux systems
-port = 12345                # Reserve a port for your service.
-s.bind((host, port))        # Bind to the port
+    conn.close()
 
-s.listen(1)                 # Now wait for client connection.
+def main(argv):
 
-print "Waiting for connection . . . "
-c, addr = s.accept()     # Establish connection with client.
-print "Got connection from : ", addr
+    port = int(argv[0])
+    host = ''
+    sock = socket.socket()
+    sock.bind((host, port))
+    sock.listen(1)                 #only one client
+    conn = None
+    while True:
+        print "Waiting for connection . . . \n"
 
-while True:
-   print "waiting for client message . . . \n"
-   message = str(c.recv(1024)).strip()
+        conn, addr = sock.accept()
+        #start_new_thread(clientThread,(conn,addr))
+        async_result = pool.apply_async(clientThread, (conn,addr))
 
-   if not message or message == "quit":
-       print 'exiting . . .'
-       break
+    conn.close()
+    sock.close()
 
-   else:
-       try:
-           start_new_thread(runCommand,(message,""))
-       except:
-           logging.exception("Unhandled exception during main")
-
-   #print "received message : ", message
-
-c.close()                # Close the connection
+if __name__ == '__main__':
+    main(sys.argv[1:])
