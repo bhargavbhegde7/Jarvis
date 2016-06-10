@@ -85,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button disconnectButton;
-        sendButton = (Button) findViewById(R.id.disconnectButton);
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        disconnectButton = (Button) findViewById(R.id.disconnectButton);
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //end connection
+                sendCommand("quit");
                 ClientThread.endConnection();
             }
         });
