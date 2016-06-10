@@ -83,6 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Looks like Connected",Toast.LENGTH_SHORT);
             }
         });
+
+        Button disconnectButton;
+        sendButton = (Button) findViewById(R.id.disconnectButton);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //end connection
+                ClientThread.endConnection();
+            }
+        });
     }
 
     public void sendCommand(String command)

@@ -36,6 +36,14 @@ public class ClientThread implements Runnable {
         return socket;
     }
 
+    public static void endConnection(){
+        try {
+            socket.close();
+        }catch(Exception e){
+            System.out.println("Exception in closing the socket : "+e.getMessage());
+        }
+    }
+
     /*public static void setSocket(Socket socket) {
         ClientThread.socket = socket;
     }*/

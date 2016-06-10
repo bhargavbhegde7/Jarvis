@@ -15,24 +15,25 @@
         android:id="@+id/resultString"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/sendButton" />
+        android:layout_toStartOf="@+id/micButton"
+        android:height="@dimen/abc_action_bar_stacked_tab_max_width" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
         android:id="@+id/sendButton"
-        android:layout_alignBottom="@+id/resultString"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/resultString"
+        android:layout_alignBottom="@+id/resultString" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Listen"
         android:id="@+id/micButton"
-        android:layout_marginBottom="97dp"
-        android:layout_above="@+id/sendButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/connectButton"
+        android:layout_alignParentEnd="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -40,8 +41,8 @@
         android:text="Auto send"
         android:id="@+id/autoSend"
         android:checked="false"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/micButton"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,7 +60,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/sendButton"
         android:layout_alignStart="@+id/sendButton"
-        android:text="9877" />
+        android:text="12345" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,8 +83,18 @@
         android:layout_height="wrap_content"
         android:text="Connect"
         android:id="@+id/connectButton"
+        android:textColor="@color/green"
         android:layout_below="@+id/serverIpLabel"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/serverPortLabel" />
+        android:layout_toStartOf="@+id/disconnectButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disconnect"
+        android:id="@+id/disconnectButton"
+        android:textColor="@color/red"
+        android:layout_below="@+id/serverPortLabel"
+        android:layout_toStartOf="@+id/micButton" />
 
 </RelativeLayout>
