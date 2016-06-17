@@ -14,6 +14,7 @@ def runCommand(command,conn):
 
 def clientThread(conn,addr):
     print "Got connection from : " + str(addr)
+    conn.send("ack : connected")
     while True:
         try:
             message = str(conn.recv(1024)).strip() #1024 bytes
