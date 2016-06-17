@@ -5,10 +5,11 @@ from thread import *
 import logging
 import sys
 
-def runCommand(command,):
+def runCommand(command,conn):
     print "executing ", command
     print "done running . . . "
     print "ending . . . "
+    conn.send("ran the command")
     return
 
 def clientThread(conn,addr):
@@ -22,7 +23,7 @@ def clientThread(conn,addr):
                 break   #connection closes as soon as break from the loop
             else:   #incoming normal command message
                 try:
-                    start_new_thread(runCommand,(message,)) #run the task inside a new thread
+                    start_new_thread(runCommand,(message,conn)) #run the task inside a new thread
                 except:
                     print "Exception in running command thread . . .", "Terminating connection . . . "
                     break

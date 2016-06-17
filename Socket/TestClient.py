@@ -14,5 +14,6 @@ while True:
     #     s.send(message)
     #     break
     s.send(message)
+    print s.recv(1024)
 
 s.close                     # Close the socket when done
