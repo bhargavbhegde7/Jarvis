@@ -40,17 +40,7 @@ public class ClientThread implements Runnable {
         return socket;
     }
 
-    public static String getop () throws IOException {
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
-        String line;
-        br.readLine().toString();
 
-
-        System.out.println(br.readLine().toString());
-
-        return (br.readLine().toString());
-    }
 
     public static void endConnection(){
         try {

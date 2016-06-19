@@ -44,15 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button dis;
-        dis = (Button) findViewById(R.id.dis);
-        dis.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                abc();
-            }
-        });
+        
 
         CheckBox autoSend = (CheckBox) findViewById(R.id.autoSend);
         autoSend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -166,14 +158,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     /* for speech input */
-    public void abc() {
-        try {
-            Toast t = Toast.makeText(getApplicationContext(), ClientThread.getop(), Toast.LENGTH_SHORT);
-            t.show();
-        }
-        catch(IOException i) {
 
-        }
-    }
 }
 
