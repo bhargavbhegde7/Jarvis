@@ -96,15 +96,7 @@
         android:textColor="@color/red"
         android:layout_below="@+id/serverPortLabel"
         android:layout_toStartOf="@+id/micButton" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get op"
-
-        android:id="@+id/dis"
-        android:textColor="@color/red"
-        android:layout_below="@+id/serverPortLabel"
-        android:layout_toStartOf="@+id/micButton" />
+    
 
 
 </RelativeLayout>
