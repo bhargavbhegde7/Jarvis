@@ -12,8 +12,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.UnknownHostException;
@@ -38,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
+            }
+        });
+
+        Button dis;
+        dis = (Button) findViewById(R.id.dis);
+        dis.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                abc();
             }
         });
 
@@ -102,12 +115,13 @@ public class MainActivity extends AppCompatActivity {
             PrintWriter out = new PrintWriter(new BufferedWriter(
                     new OutputStreamWriter(ClientThread.getSocket().getOutputStream())),
                     true);
+
             out.println(command);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        } catch (Exception e) {//////
             e.printStackTrace();
         }
     }
@@ -152,4 +166,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     /* for speech input */
+    public void abc() {
+        try {
+            Toast t = Toast.makeText(getApplicationContext(), ClientThread.getop(), Toast.LENGTH_SHORT);
+            t.show();
+        }
+        catch(IOException i) {
+
+        }
+    }
 }
+

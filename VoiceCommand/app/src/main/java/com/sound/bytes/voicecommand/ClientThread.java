@@ -1,8 +1,12 @@
 package com.sound.bytes.voicecommand;
 
+import android.content.Context;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -36,6 +40,18 @@ public class ClientThread implements Runnable {
         return socket;
     }
 
+    public static String getop () throws IOException {
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+        String line;
+        br.readLine().toString();
+
+
+        System.out.println(br.readLine().toString());
+
+        return (br.readLine().toString());
+    }
+
     public static void endConnection(){
         try {
             socket.close();
@@ -51,10 +67,22 @@ public class ClientThread implements Runnable {
     @Override
     public void run() {
 
+
         try {
             InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
 
-            this.socket = new Socket(serverAddr, SERVERPORT);
+            socket = new Socket(serverAddr, SERVERPORT);
+
+            //Get reply back from the server
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            //Assign it to a variable
+            String serverResponse = in.readLine();
+
+            //Print the response
+            System.out.println(serverResponse);
+
+
+
 
         } catch (UnknownHostException e1) {
             e1.printStackTrace();
